@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/gorilla/mux"
 )
 
 var hostname string
@@ -32,10 +30,9 @@ func main() {
 		panic(err)
 	}
 
-	r := mux.NewRouter()
-	r.HandleFunc("/", GetTime)
+	http.HandleFunc("/", GetTime)
 	log.Println("QOTM starting")
-	http.ListenAndServe(":8000", r)
+	http.ListenAndServe(":8000", nil)
 }
 
 func GetTime(w http.ResponseWriter, r *http.Request) {
